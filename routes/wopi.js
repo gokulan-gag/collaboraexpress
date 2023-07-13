@@ -19,7 +19,7 @@ router.get("/files/:fileId", function (req, res) {
     BaseFileName: "test.txt",
     Size: 11,
     UserId: 1,
-    UserCanWrite: false,
+    UserCanWrite: true,
   });
 });
 
