@@ -16,7 +16,7 @@ router.get("/files/:fileId", function (req, res) {
   // the Size property is the length of the string
   // returned by the wopi GetFile endpoint
   res.json({
-    BaseFileName: "test.txt",
+    BaseFileName: "test.pptx",
     Size: 11,
     UserId: 1,
     UserCanWrite: true,
