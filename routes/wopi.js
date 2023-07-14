@@ -62,22 +62,22 @@ router.get("/files/:fileId/contents", function (req, res) {
   // in a real case you should use the file id
   // for retrieving the file from the storage and
   // send back the file content as response
-  s3.getObject(
-    { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
-    function (err, data) {
-      if (err) {
-        console.log("Error retrieving file content:", err);
-        res.sendStatus(404);
-      } else {
-        const fileContent = data.Body;
-        console.log("DATA....", data);
-        res.send(fileContent);
-      }
-    }
-  );
+  // s3.getObject(
+  //   { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
+  //   function (err, data) {
+  //     if (err) {
+  //       console.log("Error retrieving file content:", err);
+  //       res.sendStatus(404);
+  //     } else {
+  //       const fileContent = data.Body;
+  //       console.log("DATA....", data);
+  //       res.send(fileContent);
+  //     }
+  //   }
+  // );
 
-  // var fileContent = "Hello world!";
-  // res.send(fileContent);
+  var fileContent = "Hello world!";
+  res.send(fileContent);
 });
 
 /* *
