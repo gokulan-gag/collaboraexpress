@@ -88,17 +88,32 @@ router.get("/files/:fileId/contents", function (req, res) {
  *  https://HOSTNAME/wopi/files/<document_id>/contents
  */
 router.post("/files/:fileId/contents", function (req, res) {
-  // we log to the console so that is possible
-  // to check that saving has triggered this wopi endpoint
   console.log("wopi PutFile endpoint");
+
   if (req.body) {
-    console.dir("REQ DIR...", req.body);
-    console.log("REQ...", req);
-    console.log("REQ BODY", req.body);
-    res.sendStatus(200);
+    const fileContent = req.body;
+    console.log("REQ BODY...", fileContent);
+
+    // Use the S3 putObject method to save the file content
+    s3.putObject(
+      {
+        Bucket: "demo-s3-bucket-july",
+        Key: "sampledocx.docx",
+        Body: fileContent,
+      },
+      function (err) {
+        if (err) {
+          console.log("Error saving file content:", err);
+          return res.sendStatus(500);
+        } else {
+          console.log("File saved successfully");
+          return res.sendStatus(200);
+        }
+      }
+    );
   } else {
     console.log("Not possible to get the file content.");
-    res.sendStatus(404);
+    return res.sendStatus(404);
   }
 });
 
