@@ -63,7 +63,7 @@ router.get("/files/:fileId/contents", function (req, res) {
   // for retrieving the file from the storage and
   // send back the file content as response
   s3.getObject(
-    { Bucket: "your-bucket-name", Key: "sampledocx.docx" },
+    { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
     function (err, data) {
       if (err) {
         console.log("Error retrieving file content:", err);
