@@ -70,6 +70,7 @@ router.get("/files/:fileId/contents", function (req, res) {
         res.sendStatus(404);
       } else {
         const fileContent = data.Body;
+        console.log("DATA....", data);
         res.send(fileContent);
       }
     }
