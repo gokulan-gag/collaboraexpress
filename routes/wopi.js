@@ -92,8 +92,9 @@ router.post("/files/:fileId/contents", function (req, res) {
   // to check that saving has triggered this wopi endpoint
   console.log("wopi PutFile endpoint");
   if (req.body) {
-    console.dir(req.body);
-    console.log(req.body.toString());
+    console.dir("REQ DIR...", req.body);
+    console.log("REQ...", req);
+    console.log("REQ BODY", req.body);
     res.sendStatus(200);
   } else {
     console.log("Not possible to get the file content.");
