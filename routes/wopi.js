@@ -110,10 +110,10 @@ router.post("/files/:fileId/contents", function (req, res) {
   if (req) {
     console.dir("SAVED DATA....", req);
     // console.log(req.body.toString());
-    res.sendStatus(200);
+    return res.sendStatus(200);
   } else {
     console.log("Not possible to get the file content.");
-    res.sendStatus(404);
+    return res.sendStatus(404);
   }
 });
 
