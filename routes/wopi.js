@@ -31,7 +31,7 @@ router.get("/files/:fileId", function (req, res) {
       } else {
         console.log(data);
         const fileInfo = {
-          BaseFileName: fileId,
+          BaseFileName: "sampledocx.docx",
           Size: data.ContentLength,
           // Include any additional properties you need
           UserId: 1,
