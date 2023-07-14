@@ -9,7 +9,7 @@ var wopiRouter = require("./routes/wopi");
 
 // maximum request body size handled by the bodyParser package
 // increase it if you need to handle larger files
-var maxDocumentSize = "2mb";
+var maxDocumentSize = "20mb";
 
 var app = express();
 
