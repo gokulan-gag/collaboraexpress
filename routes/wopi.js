@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3();
+
 /* *
  *  wopi CheckFileInfo endpoint
  *
@@ -15,12 +18,33 @@ router.get("/files/:fileId", function (req, res) {
   // test.txt is just a fake text file
   // the Size property is the length of the string
   // returned by the wopi GetFile endpoint
-  res.json({
-    BaseFileName: "test.pptx",
-    Size: 11,
-    UserId: 1,
-    UserCanWrite: true,
-  });
+
+  s3.headObject(
+    { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
+    (err, data) => {
+      if (err) {
+        console.log("Error retrieving file information:", err);
+        res.sendStatus(404);
+      } else {
+        console.log(data);
+        const fileInfo = {
+          BaseFileName: fileId,
+          Size: data.ContentLength,
+          // Include any additional properties you need
+          UserId: 1,
+          UserCanWrite: true,
+        };
+
+        res.json(fileInfo);
+      }
+    }
+  );
+  // res.json({
+  //   BaseFileName: "test.pptx",
+  //   Size: 11,
+  //   UserId: 1,
+  //   UserCanWrite: true,
+  // });
 });
 
 /* *
@@ -35,8 +59,21 @@ router.get("/files/:fileId/contents", function (req, res) {
   // in a real case you should use the file id
   // for retrieving the file from the storage and
   // send back the file content as response
-  var fileContent = "Hello world!";
-  res.send(fileContent);
+  s3.getObject(
+    { Bucket: "your-bucket-name", Key: fileId },
+    function (err, data) {
+      if (err) {
+        console.log("Error retrieving file content:", err);
+        res.sendStatus(404);
+      } else {
+        const fileContent = data.Body;
+        res.send(fileContent);
+      }
+    }
+  );
+
+  // var fileContent = "Hello world!";
+  // res.send(fileContent);
 });
 
 /* *
