@@ -23,7 +23,7 @@ router.get("/files/:fileId", function (req, res) {
   // returned by the wopi GetFile endpoint
 
   s3.headObject(
-    { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
+    { Bucket: "demo-s3-bucket-july", Key: req.params.fileId },
     (err, data) => {
       if (err) {
         console.log("Error retrieving file information:", err);
@@ -63,7 +63,7 @@ router.get("/files/:fileId/contents", function (req, res) {
   // send back the file content as response
 
   s3.getObject(
-    { Bucket: "demo-s3-bucket-july", Key: "sampledocx.docx" },
+    { Bucket: "demo-s3-bucket-july", Key: req.params.fileId },
     function (err, data) {
       if (err) {
         console.log("Error retrieving file content:", err);
@@ -98,7 +98,7 @@ router.post("/files/:fileId/contents", function (req, res) {
     s3.putObject(
       {
         Bucket: "demo-s3-bucket-july",
-        Key: "sampledocx.docx",
+        Key: req.params.fileId,
         Body: fileContent,
       },
       function (err) {
