@@ -3,11 +3,7 @@ var router = express.Router();
 
 const AWS = require("aws-sdk");
 
-AWS.config.update({
-  accesskeyId: "AKIA3T45MHKF6H3VJDFA",
-  secretAccesKey: "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",
-  region: "us-east-1",
-});
+AWS.config.loadFromPath("./config.json");
 
 const s3 = new AWS.S3();
 
